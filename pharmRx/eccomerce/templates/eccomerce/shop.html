@@ -1,0 +1,162 @@
+{% extends 'eccomerce/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="site-navbar py-2">
+
+      <div class="search-wrap">
+        <div class="container">
+          <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+          <form action="{% url 'search' %}" method="post">
+            <input type="text" class="form-control" placeholder="Search drug name and hit enter..." name="c_search">
+        </form>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="logo">
+            <div class="site-logo">
+              <a href="{% url 'home' %}" class="js-logo-clone">PharmRx</a>
+            </div>
+          </div>
+<div class="main-nav d-none d-lg-block">
+  <nav class="site-navigation text-right text-md-center" role="navigation">
+    <ul class="site-menu js-clone-nav d-none d-lg-block">
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li class="active"><a href="{% url 'store' %}">Store</a></li>
+      <li class="has-children">
+        <a href="#">Links</a>
+        <ul class="dropdown">
+            <li><a href="https://colorlib.com">Colorib</a></li>
+            <li class="has-children">
+                <a href="#">Socials</a>
+                <ul class="dropdown">
+                    <li><a href="https://github.com/Osagie007">Github</a></li>
+                    <li><a href="https://twitter.com/OsagieRonald">Twitter</a></li>
+                    <li><a href="https://www.linkedin.com/in/osagie-ronald-4b149520b/?originalSubdomain=ng">Linkedin</a></li>
+                </ul>
+            </li>
+            
+
+        </ul>
+    </li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'contact' %}">Contact</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="icons">
+  <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+  <a href="{% url 'cart' %}" class="icons-btn d-inline-block bag">
+    <span class="icon-shopping-bag"></span>
+    <span class="number" id="cart-total">{{cartItems}}</span>
+  </a>
+  <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
+      class="icon-menu"></span></a>
+</div>
+</div>
+</div>
+</div>
+
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="{% url 'home' %}">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Store</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        
+        <div class="row">
+          <div class="col-lg-6">
+            <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
+            Coming soon !!!
+            <div id="slider-range" class="border-primary"></div>
+            <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
+          </div>
+          <div class="col-lg-6">
+            <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Reference</h3>
+            <button type="button" class="btn btn-secondary btn-md dropdown-toggle px-4" id="dropdownMenuReference"
+              data-toggle="dropdown">Reference</button>
+              Coming soon !!!
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+              <a class="dropdown-item" href="#">Relevance</a>
+              <a class="dropdown-item" href="#">Name, A to Z</a>
+              <a class="dropdown-item" href="#">Name, Z to A</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Price, low to high</a>
+              <a class="dropdown-item" href="#">Price, high to low</a>
+            </div>
+          </div>
+        </div>
+    
+        <div class="row">
+          {% for product in p_products %}
+          <div class="col-sm-6 col-lg-4 text-center item mb-4">
+            <a href="{% url 'product_info' product.id %}"> <img src="{{product.imageURL}}" alt="Image"></a>
+            <h3 class="text-dark"><a href="{% url 'product_info' product.id %}">{{ product.name }}</a></h3>
+            <!-- <h3 class="text-dark"><a href="{% url 'product_info' product.id %}">{{ product.name }}</a></h3> -->
+            <p class="price">${{product.price}}</p>
+            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">
+              Add to cart
+           </button>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="row mt-5">
+          <div class="col-md-12 text-center">
+            <div class="site-block-27">
+              <!-- PAGINATION CONTROLLED BY VIEWS.PY -->
+              <ul>
+                {% if p_products.has_previous %}                
+                <li><a href="?page=1">First</a></li>
+                <li><a href="?page={{ p_products.previous_page_number}}">&lt;</a></li>
+                
+                {% endif %}
+                <li class="active"><span>{{ p_products.number }}</span></li>
+                {% if p_products.has_next %}
+                
+                <li><a href="?page={{ p_products.next_page_number }}">&gt;</a></li>
+                <li><a href="?page={{ p_products.paginator.num_pages }}">Last</a></li>
+                
+                {% endif %}
+              </ul>
+              <hr><br/><br/>
+              <div style="text-align:center;"> Page {{ p_products.number }} of {{ p_products.paginator.num_pages}} </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="site-section bg-secondary bg-image" style="background-image: url('{% static "images/bg_2.jpg" %}');">
+      <div class="container">
+        <div class="row align-items-stretch">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('{% static "images/bg_1.jpg" %}');">
+              <div class="banner-1-inner align-self-center">
+                <h2>PharmRx Products</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('{% static "images/bg_2.jpg" %}');">
+              <div class="banner-1-inner ml-auto  align-self-center">
+                <h2>Rated by Experts</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  
+  {% endblock content %}

@@ -1,0 +1,149 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>PharmRx &mdash; </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css?family=Rubik:400,700|Crimson+Text:400,400i" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
+
+  <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="https://kit.fontawesome.com/ccdc0b3536.js" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    var user = "{{request.user}}";
+
+    function getToken(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            var cookies = document.cookie.split(";");
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === name + "=") {
+                    cookieValue = decodeURIComponent(
+                        cookie.substring(name.length + 1)
+                    );
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getToken("csrftoken");
+
+    function getCookie(name) {
+        // Split cookie string and get all individual name=value pairs in an array
+        var cookieArr = document.cookie.split(";");
+
+        // Loop through the array elements
+        for (var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+
+            /* Removing whitespace at the beginning of the cookie name
+                      and compare it with the given string */
+            if (name == cookiePair[0].trim()) {
+                // Decode the cookie value and return
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+
+        // Return null if not found
+        return null;
+    }
+    var cart = JSON.parse(getCookie("cart"));
+    if (cart == undefined) {
+        cart = {};
+        console.log("Cart was created!", cart);
+        document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/";
+    }
+    console.log("Cart:", cart);
+</script>
+</head>
+
+  <body>       
+    
+    <div class="site-wrap">
+        <br />
+        {% block content %} {% endblock content %}
+        <footer class="site-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+    
+                <div class="block-7">
+                  <h3 class="footer-heading mb-4">About Us</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quae reiciendis distinctio voluptates
+                    sed dolorum excepturi iure eaque, aut unde.</p>
+                </div>
+    
+              </div>
+              
+    
+              <div class="col-lg-3 mx-auto mb-5 mb-lg-0"  style="text-align:center;">
+                <h3 class="footer-heading mb-4">Social Links</h3>
+                <ul class="list-unstyled">
+                  <li><a href="#"><i class="fa-brands fa-whatsapp fa-2x fa-beat-fade"></i></a></li>
+                  <li><a href="https://github.com/Osagie007"><i class="fa-brands fa-github fa-2x "></i></a></li>
+                  <li><a href="https://twitter.com/OsagieRonald"><i class="fa-brands fa-twitter fa-2xl fa-flip"></i></a></li>
+                  <li><a href="#">Tea &amp; Coffee</a></li>
+                </ul>
+              </div>
+    
+              <div class="col-md-6 col-lg-3">
+                <div class="block-5 mb-5">
+                  <h3 class="footer-heading mb-4">Contact Info</h3>
+                  <ul class="list-unstyled">
+                    <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
+                    <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
+                    <li class="email">emailaddress@domain.com</li>
+                  </ul>
+                </div>
+              
+              </div>
+    
+            </div>
+            <div class="row pt-5 mt-5 text-center">
+              <div class="col-md-12">
+                <p>
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  Copyright &copy;
+                  <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+                  with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank"
+                    class="text-primary">Colorlib</a>  &amp;  <a href="https://github.com/Osagie007" target="_blank"
+                    class="text-primary" > SageRage <i class="fa-solid fa-user-secret fa-shake" style="color: rgba(0, 42, 255, 0.475);"></i> </a>
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+              </div>
+            </div>
+          </div>
+        </footer>
+  </div>
+  
+    
+             
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+
+  <script src="{% static 'js/main.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+</body>
+
+</html>
